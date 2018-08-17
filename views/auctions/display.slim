@@ -1,0 +1,72 @@
+.container
+  .row.justify-content-center
+    .list-group
+      .list-group-item.list-group-item-action.active.text-center.text-white
+        = @auction.title.upcase
+      .list-group-item.list-group-item-action
+        | Description: 
+        = @auction.description
+      .list-group-item.list-group-item-action
+        | Owner: 
+        = @auction.user.name
+      .list-group-item.list-group-item-action
+        | User created:  
+        = @auction.user.created_at.strftime('%d-%m-%Y / %H:%M:%S')
+      .list-group-item.list-group-item-action
+        | Auction created: 
+        = @auction.created_at.strftime('%d-%m-%Y / %H:%M:%S')
+
+  br
+  br
+    .row
+      .col-md-6
+        - if current_user.nil?
+          a.btn.btn-dark href="/login" Login to bid in this auction
+        - else
+          button.btn.btn-warning type="button" 
+            h4 
+              strong Current bid: #{@max_bid / 100} $
+          form.form-inline name="bid" method="post" action="/auctions/#{@auction.id}/bids"
+            .form-group
+              - amount_errors = @bid.errors.on(:amount) || []
+              div class=(amount_errors.any? ? 'has-error' : '')
+                input class=*['form-control', amount_errors.any? ? 'is-invalid' : ''] type="text" name="bid[amount]" value=(@max_bid / 100 + 1)
+                - if amount_errors.any?
+                  .invalid-feedback= amount_errors.join(', ')
+                - else
+                  small.form-text.text-muted Needs to be an integer
+                  
+            button.btn.btn-primary.mb-2 type="submit" Place bid
+    
+      .col-md-6
+        .panel.panel-w.panel-primary
+          .panel-heading
+            h3.panel-title.text-center 10 LAST BIDS
+        table.table.table-w.table-bordered
+          thead.thead-dark
+            tr
+              th scope="col" User
+              th scope="col" Amount
+              th scope="col" Creation Date
+          tbody
+            - @bids.each do |bid|
+              tr
+                td
+                  p
+                    = bid.user.name
+                td
+                  p
+                    = bid.amount
+                td
+                  p 
+                    = bid.created_at.strftime('%d-%m-%Y / %H:%M:%S')
+
+  br
+    - if current_user
+      - if @auction.user_id == current_user.id
+        a href="/auctions/#{@auction.id}/edit"
+          button.btn.btn-info Edit
+
+  br
+  a href="/auctions"
+    button.btn.btn-info Back to Auctions

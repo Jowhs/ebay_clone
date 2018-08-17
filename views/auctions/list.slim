@@ -1,0 +1,32 @@
+.col-md-12
+  .container
+    .row.justify-content-center
+      .panel.panel-w.panel-primary
+        .panel-heading
+          h3.panel-title.text-center AUCTIONS
+        table.table.table-w.table-bordered
+          thead.thead-dark
+            tr
+              th scope="col" Title
+              th scope="col" Description
+              th scope="col" Owner
+              th scope="col" Creation Date
+          tbody
+            - @auctions.each do |auction|
+              tr
+                td
+                  a href="/auctions/#{auction[:id]}"
+                    = auction.title
+                td
+                  p
+                    = auction.description[0,50]
+                td
+                  p
+                    = auction.user.name
+                td
+                  p 
+                    = auction.created_at.strftime('%d-%m-%Y / %H:%M:%S')
+
+    - if current_user
+      a href="/"
+        button.btn.btn-info Back to Dashboard

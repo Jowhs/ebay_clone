@@ -1,0 +1,12 @@
+development:
+    adapter: 'mysql2'
+    host: 'mysql.getapp.docker'
+    database: 'sinatra_scaffold'
+    user: 'root'
+    password: 'pass'
+test:
+    adapter: 'mysql2'
+    host: 'mysql.getapp.docker'
+    database: 'sinatra_scaffold_test'
+    user: 'root'
+    password: 'pass'

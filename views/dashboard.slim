@@ -1,0 +1,16 @@
+.container
+  .row.justify-content-center
+    .col-md-6
+      h1 Welcome, #{current_user.name}!
+
+      table.table.table-w
+        tbody
+          - @auctions.each do |auction|
+            tr
+              td
+                p
+                  = auction.title
+              td
+                p 
+                  = auction.created_at.strftime('%d-%m-%Y / %H:%M:%S')
+                    

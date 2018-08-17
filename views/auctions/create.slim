@@ -1,0 +1,16 @@
+.container
+  .row.justify-content-center
+    h2 New Auction
+  .row.justify-content-center
+    form.form-horizontal name="auction" method="post" action="/auctions"
+      
+      == slim :'auctions/_temp'
+
+      .form-group
+        .col-md-2.col-md-offset-3
+          button.btn.btn-sm.btn-primary type="submit" 
+            i.glyphicon.glyphicon-ok
+            | Create
+
+  a href="/"
+    button.btn.btn-info Back to Dashboard

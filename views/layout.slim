@@ -1,0 +1,45 @@
+html
+  head
+    title Ebay Clone App
+    script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"
+    script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"
+    link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+
+    css:
+      .has-below {
+        padding-bottom: 20px;
+      }
+
+  body
+    .d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.mb-3.bg-primary.border-bottom.box-shadow
+      h5.my-0.mr-md-auto.font-weight-normal
+        img style="height: 50px; width: 100px; margin-right: 40px" src="http://wwwcdn.howdesign.com/wp-content/uploads/i-also-find-this-to-be-acceptable-13454-1347576021-1.jpeg"
+        a.text-white style="margin-right: 40px" href="/dashboard" Dashboard
+        a.text-white style="margin-right: 40px" href="/auctions/new" 
+          span.fa.fa-plus 
+          |    Create a new auction
+        a.text-white style="margin-right: 40px" href="/auctions"
+          span.fa.fa-bars 
+          |    Auctions list
+      nav.my-2.my-md-0.mr-md-3
+        - if current_user
+          a.btn.btn-dark href="/logout" Log out
+        - else
+          a.btn.btn-dark style="margin-right: 40px" href="/login" Login
+          a.btn.btn-dark href="/signup" Sign up
+
+      
+
+    .container-fluid
+      .row
+        .col-12
+          - (flash || {}).each do |key, message| # success, info, warning, danger
+            #flash-message class=['alert', "alert-#{key}"]
+              = message
+
+      .row
+        == yield
+
+

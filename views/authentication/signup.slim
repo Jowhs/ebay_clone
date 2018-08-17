@@ -1,0 +1,31 @@
+.has-below
+.col-12.col-md-6.justify-content-md-center.mx-auto
+  .card.align-middle.mt-3
+    .card-header.bg-info
+      h4.card-title Sign up
+    .card-body
+      form.form-horizontal name='login' method='post' action=url('/signup')
+        .form-group
+          - name_errors = @user.errors.on(:name) || []
+          label.control-label for="name" Username
+          div class=(name_errors.any? ? 'has-error' : '')
+            input class=*['form-control', name_errors.any? ? 'is-invalid' : '' ] type="text" name="name" value=@user.name
+            - if name_errors.any?
+              .invalid-feedback= name_errors.join(', ')
+            - else
+              small.form-text.text-muted Needs to be between 3 and 8 characters
+        .form-group
+          - password_errors = @user.errors.on(:new_password) || []
+          label.control-label for="password" Password
+          div class=(password_errors.any? ? 'has-error' : '')
+            input class=*['form-control', password_errors.any? ?  'is-invalid' : '' ] type="password" name="password" value=@user.new_password
+            - if password_errors.any?
+              .invalid-feedback= password_errors.join(', ')
+            - else
+              small.form-text.text-muted Needs to be between 3 and 8 characters
+
+        .form-group
+          button.btn.btn-sm.btn-primary type="submit" Submit
+
+  a href='/login' Login
+

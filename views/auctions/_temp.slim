@@ -1,0 +1,18 @@
+.col-sm-12
+  .row
+    .col-sm-12.form-group
+      - title_errors = @auction.errors.on(:title) || []
+      div class=(title_errors.any? ? 'has-error' : '')
+        input class=*['form-control', title_errors.any? ? 'is-invalid' : ''] type="text" name="auction[title]" value=@auction.title
+        - if title_errors.any?
+          .invalid-feedback= title_errors.join(', ')
+        - else
+          small.form-text.text-muted Needs to be between 5 and 100 characters
+    .col-sm-12.form-group
+      - description_errors = @auction.errors.on(:description) || []
+      div class=(description_errors.any? ? 'has-error' : '')
+        textarea class=*['form-control', description_errors.any? ? 'is-invalid' : ''] rows="3" name="auction[description]" = @auction.description
+        - if description_errors.any?
+          .invalid-feedback= description_errors.join(', ')
+        - else
+          small.form-text.text-muted Needs to be between 20 and 500 characters
